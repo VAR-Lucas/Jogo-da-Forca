@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 import random
 import time
 
+# Caminho para webDriver
 PATH = r'C:\Users\Lucas\Documents\Meus-projetos\Jogo-da-Forca\chromedriver.exe'
 
 class chrome:
@@ -86,17 +87,18 @@ time.sleep(10)
 palavra = palavras[random.randint(0, len(palavras)-1)]
 print(palavra)
 for x in range(len(palavra)):
-    palavra_oculta.append("*")
+    if palavra[x] != ' ':
+        palavra_oculta.append("*")
+    else:
+        palavra_oculta.append(" ")
     letras_corretas.append(palavra[x])
-if ' ' in palavra:
-    numero = palavra.index(' ')
-    palavra_oculta[numero] = palavra[numero]
+
 
 
 print(palavra_oculta)
-print()
+print(letras_corretas)
 
-letrasTendadas = []
+letrasTentadas = []
 letras_mostradas = []
 
 
@@ -114,16 +116,16 @@ while True:
         print(palavra_oculta[x], end=(''))
     print()
     print('Letras tendadas: ',end='')
-    for y in range(len(letrasTendadas)):
-        print(letrasTendadas[y], end=('| '))
+    for y in range(len(letrasTentadas)):
+        print(letrasTentadas[y], end=('| '))
     print()
 
     letra = input('Digite uma letra: ').lower()
-    if letra in letrasTendadas:
+    if letra in letrasTentadas:
         print('Essa letra já foi tentada.')
         
     else:        
-        letrasTendadas.append(letra)
+        letrasTentadas.append(letra)
         print()
 
         if letra in letras_corretas:
@@ -137,6 +139,7 @@ while True:
             print('você ainda tem', tentativas, 'tentativas' )
 
         if tentativas == 0:
+            print('A palavra era',palavra)
             print('Você perdeu')
             break
 
